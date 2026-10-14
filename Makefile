@@ -103,7 +103,7 @@ exec:
 
 gpu-info:
 	echo 'GPU_FLAGS: ${GPU_FLAGS}'
-	docker exec -it ulstu-${FLAVOR} bash -ic 'glxinfo -B | grep -E "renderer|version string"'
+	docker exec -it ulstu-${FLAVOR} bash -ic 'vulkaninfo --summary 2>/dev/null | grep -m2 -E "deviceName|driverInfo"; glxinfo -B | grep -E "renderer string|core profile version"'
 
 destroy:
 	docker container kill ulstu-${FLAVOR} 1>/dev/null || true

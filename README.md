@@ -101,12 +101,14 @@ make build
 ## Видеокарты AMD (Linux)
 
 Поддерживаются без `nvidia-container-toolkit`: `make run` сам определяет GPU — при наличии NVIDIA-runtime
-передаёт `--gpus all`, иначе пробрасывает `/dev/dri` (OpenGL через Mesa) и `/dev/kfd` (ROCm).
+передаёт `--gpus all`, иначе пробрасывает `/dev/dri` и `/dev/kfd` (ROCm). OpenGL на AMD идёт через Zink поверх
+Vulkan-драйвера RADV (вернуть radeonsi: `MESA_LOADER_DRIVER_OVERRIDE=radeonsi`). Webots запускается на X-сервере хоста
+(на Wayland — XWayland); без него — Xvfb, но тогда рендер на CPU.
 Для новых AMD (RDNA4, RX 9070) образ ставит Mesa 25 из `ppa:kisak/turtle`.
 
 ```sh
 make build && ./start.sh
-make gpu-info   # должно быть: AMD Radeon Graphics (radeonsi, ...), не llvmpipe
+make gpu-info   # должно быть: zink ... (RADV GFX1201), не llvmpipe
 ```
 
 ## Запуск среды разработки

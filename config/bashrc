@@ -1,12 +1,18 @@
 export WEBOTS_HOME=/usr/local/webots
-export WEBOTS_OFFSCREEN=1
 export LIBGL_ALWAYS_INDIRECT=0
 export LIBGL_ALWAYS_SOFTWARE=0
 export USERNAME=default
-# NVIDIA — только если есть драйвер, иначе (AMD/Intel) OpenGL идёт через Mesa
+# Есть X-сервер хоста — Webots рендерит на GPU; нет — Xvfb (webots_ros2 + WEBOTS_OFFSCREEN), рендер на CPU
+if [ ! -S "/tmp/.X11-unix/X${DISPLAY#:}" ]; then
+    export WEBOTS_OFFSCREEN=1
+fi
+
 if command -v nvidia-smi >/dev/null 2>&1; then
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __GLX_VENDOR_LIBRARY_NAME=nvidia
+elif [ -e /dev/dri ] && [ -z "$WEBOTS_OFFSCREEN" ]; then
+    # AMD: OpenGL через Zink поверх Vulkan (RADV); вернуть radeonsi — MESA_LOADER_DRIVER_OVERRIDE=radeonsi
+    export MESA_LOADER_DRIVER_OVERRIDE=${MESA_LOADER_DRIVER_OVERRIDE:-zink}
 fi
 
 
