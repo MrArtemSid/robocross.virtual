@@ -6,6 +6,7 @@ import yaml
 import xacro
 from launch.substitutions import Command, LaunchConfiguration
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.conditions import IfCondition, UnlessCondition
 from launch.substitutions.path_join_substitution import PathJoinSubstitution
 from launch import LaunchDescription
 from ament_index_python.packages import get_package_share_directory
@@ -34,7 +35,18 @@ def get_ros2_nodes(*args):
         executable='node_ego_controller',
         name='node_ego_controller',
         output='screen' ,
-        parameters=[{'use_sim_time': USE_SIM_TIME}]
+        parameters=[{'use_sim_time': USE_SIM_TIME}],
+        condition=UnlessCondition(LaunchConfiguration('fly'))
+    )
+
+    # мозг мухи вместо ego-контроллера: ros2 launch webots_ros2_suv robot_launch.py fly:=true
+    node_fly_driver = Node(
+        package=PACKAGE_NAME,
+        executable='node_fly_driver',
+        name='node_fly_driver',
+        output='screen' ,
+        parameters=[{'use_sim_time': USE_SIM_TIME}],
+        condition=IfCondition(LaunchConfiguration('fly'))
     )
 
     package_dir = get_package_share_directory(PACKAGE_NAME)
@@ -72,6 +84,7 @@ def get_ros2_nodes(*args):
         state_publisher_node,
         node_sensors_webots,
         node_ego_controller,
+        node_fly_driver,
     ] + static_transform_nodes
 
 
@@ -94,6 +107,11 @@ def generate_launch_description():
             'world',
             default_value='robocross_gazelle.wbt',
             description='Robocross simulation world'
+        ),
+        DeclareLaunchArgument(
+            'fly',
+            default_value='false',
+            description='Drive with the fly brain (flyd server on the host)'
         ),
         webots,
         webots._supervisor,
