@@ -80,7 +80,7 @@ class FlyDriver(Node):
         band = img[m.height // 2 - CAM_ROWS:m.height // 2]
         depth = np.nan_to_num(band.min(0), nan=CAM_MAX, posinf=CAM_MAX) / np.cos(self.col_ang[:m.width])
         cam = np.clip([depth[g].min() for g in self.groups], CAM_MIN, CAM_MAX)
-        t = m.header.stamp.sec + m.header.stamp.nanosec * 1e-9
+        t = self.get_clock().now().nanoseconds * 1e-9   # время симуляции (/clock, use_sim_time из launch)
         req = {'t': t, 'x': self.pose[0], 'y': self.pose[1], 'th': self.pose[2], 'v': self.speed,
                'cam': [round(float(v), 3) for v in cam], 'lid': [round(float(v), 3) for v in self.lid]}
         self.io.write(json.dumps(req) + '\n')
