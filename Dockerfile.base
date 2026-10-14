@@ -127,7 +127,8 @@ RUN cd /ulstu/ros2_ws/src && \
 
 
 #RUN sudo -E rosdep init 
-RUN apt-get install -y python3-vcstool
+# после USER ulstu - только через sudo (иначе: Could not open lock file, are you root?)
+RUN sudo apt-get update && sudo apt-get install -y python3-vcstool
 RUN rosdep --rosdistro "${ROS_DISTRO}" update 
 RUN cd /ulstu/ros2_ws && yes | rosdep --rosdistro "${ROS_DISTRO}" install -r --from-paths src --ignore-src
 
