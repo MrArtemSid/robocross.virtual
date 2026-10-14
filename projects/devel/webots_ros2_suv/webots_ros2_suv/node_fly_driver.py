@@ -41,7 +41,7 @@ class FlyDriver(Node):
         self.io = self.sock.makefile('rw')
         self.get_logger().info(f'подключено к мозгу мухи {host}:{port}')
         self.cmd = self.create_publisher(AckermannDrive, 'cmd_ackermann', 1)
-        self.create_subscription(Image, '/vehicle/range_finder', self.on_range, qos)
+        self.create_subscription(Image, '/vehicle/range_finder/image', self.on_range, qos)
         self.create_subscription(PointCloud2, '/vehicle/lidar_base/point_cloud', self.on_lidar, qos)
         self.create_subscription(Odometry, '/odom', self.on_odom, qos)
         self.create_subscription(Float32, '/vehicle/gps/speed', self.on_speed, qos)
@@ -87,7 +87,7 @@ class FlyDriver(Node):
         self.io.flush()
         res = json.loads(self.io.readline())
         cmd = AckermannDrive()
-        cmd.steering_angle = float(res['steer'])
+        cmd.steering_angle = -float(res['steer'])   # у мухи > 0 - влево, у Webots Driver > 0 - вправо
         cmd.speed = float(res['speed']) * 3.6   # suv_driver -> setCruisingSpeed: км/ч
         self.cmd.publish(cmd)
 
@@ -100,9 +100,10 @@ def main(args=None):
     except KeyboardInterrupt:
         pass
     finally:
-        node.cmd.publish(AckermannDrive())
+        if rclpy.ok():   # Webots закрыт - контекст уже недействителен, стоп-команду слать некуда
+            node.cmd.publish(AckermannDrive())
+            rclpy.shutdown()
         node.sock.close()
-        rclpy.shutdown()
 
 
 if __name__ == '__main__':
