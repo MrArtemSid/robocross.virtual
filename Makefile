@@ -1,15 +1,19 @@
 -MAKEFLAGS+=--silent
-UID:=$(shell id +-u)
+UID:=$(shell id -u)
 DOCKER_DIR:=$(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
 #PROJECT_DIR:=$(shell dirname ${DOCKER_DIR})
 PROJECT_DIR:=${DOCKER_DIR}
-NVIDIA_GPU:=$(shell (docker info | grep Runtimes | grep nvidia 1> /dev/null && command -v nvidia-smi 1>/dev/null 2>/dev/null && nvidia-smi | grep Processes 1>/dev/null 2>/dev/null) && echo '--runtime nvidia --gpus all' || echo '')
+NVIDIA_GPU:=$(shell (docker info | grep Runtimes | grep nvidia 1> /dev/null && command -v nvidia-smi 1>/dev/null 2>/dev/null && nvidia-smi | grep Processes 1>/dev/null 2>/dev/null) && echo '--runtime nvidia --gpus all -e NVIDIA_DRIVER_CAPABILITIES=all' || echo '')
+# AMD/Intel: Mesa через /dev/dri, ROCm через /dev/kfd (если есть)
+RENDER_GID:=$(shell getent group render | cut -d: -f3)
+DRI_GPU:=$(shell test -e /dev/dri && echo '--device /dev/dri --group-add video' $(if ${RENDER_GID},'--group-add ${RENDER_GID}'))$(shell test -e /dev/kfd && echo ' --device /dev/kfd')
+GPU_FLAGS:=$(if ${NVIDIA_GPU},${NVIDIA_GPU},${DRI_GPU})
 IMAGE=ulstu
 FLAVOR ?= devel
 ROBOT_PANEL_PORT ?= 8008
 VS_PORT ?= 31415
 WEBOTS_STREAM_PORT ?= 1234
-DISPLAY=:1
+DISPLAY ?= :1
 
 .PHONY: all
 
@@ -32,6 +36,7 @@ buildmacos:
 #--runtime=nvidia 
 
 run: 
+	command -v xhost >/dev/null && xhost +local: >/dev/null || true
 	docker run --ipc=host \
 		--cap-add SYS_ADMIN \
 		--name ${IMAGE}-${FLAVOR} \
@@ -39,14 +44,9 @@ run:
 		--privileged \
 		--restart unless-stopped \
 		-p ${ROBOT_PANEL_PORT}:8008 -p ${VS_PORT}:31415 -p ${WEBOTS_STREAM_PORT}:1234 \
-		-e NVIDIA_DRIVER_CAPABILITIES=all ${NVIDIA_GPU} \
+		${GPU_FLAGS} \
 		-e DISPLAY=${DISPLAY} \
 		-v ~/.Xauthority:/ulstu/.host/.Xauthority:ro \
-		-e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
-      	-e DISPLAY=:1 \
-		--device=/dev/dxg \
-		-it --gpus all --device /dev/dri:/dev/dri \
-		-e LD_LIBRARY_PATH=/usr/lib/wsl/lib \
 		-v /tmp/.X11-unix/:/tmp/.X11-unix:rw \
 		-v /dev:/dev:rw \
 		-v ${PROJECT_DIR}/projects/devel:/ulstu/repositories:rw \
@@ -59,7 +59,7 @@ run:
 test-nvidia: colors
 	lspci | grep -qi nvidia && base64 --decode massage | unxz || true
 	docker run --rm \
-		-e NVIDIA_DRIVER_CAPABILITIES=all ${NVIDIA_GPU} \
+		${NVIDIA_GPU} \
 		-e DISPLAY=${DISPLAY} \
 		${IMAGE} | grep -qi 'nvidia' && \
 	printf '%b\n' "${RED}Detected NVIDIA GPU in system, but missing packets, look up NVIDIA GPU section in README!\n${NC}" || \
@@ -100,6 +100,10 @@ stop-code-server:
 
 exec:
 	docker exec -it ulstu-${FLAVOR} bash
+
+gpu-info:
+	echo 'GPU_FLAGS: ${GPU_FLAGS}'
+	docker exec -it ulstu-${FLAVOR} bash -ic 'glxinfo -B | grep -E "renderer|version string"'
 
 destroy:
 	docker container kill ulstu-${FLAVOR} 1>/dev/null || true

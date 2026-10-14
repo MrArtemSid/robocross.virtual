@@ -98,6 +98,17 @@ make build
    ```
    Вместо ${FlAVOR} пропишите название контейнера, которое было прописано в скрипте start.sh
 
+## Видеокарты AMD (Linux)
+
+Поддерживаются без `nvidia-container-toolkit`: `make run` сам определяет GPU — при наличии NVIDIA-runtime
+передаёт `--gpus all`, иначе пробрасывает `/dev/dri` (OpenGL через Mesa) и `/dev/kfd` (ROCm).
+Для новых AMD (RDNA4, RX 9070) образ ставит Mesa 25 из `ppa:kisak/turtle`.
+
+```sh
+make build && ./start.sh
+make gpu-info   # должно быть: AMD Radeon Graphics (radeonsi, ...), не llvmpipe
+```
+
 ## Запуск среды разработки
 1. Доступ к VSCode: http://localhost:31415, вместо VS_PORT пропишите адрес порта из скрипта установки
 Для запуска решения откройте в vscode терминал, зайдите в папку ~/ros2_ws, постройте решение командой colcon build  запустите свое решение webots_ros2:

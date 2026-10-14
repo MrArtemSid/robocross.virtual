@@ -3,8 +3,11 @@ export WEBOTS_OFFSCREEN=1
 export LIBGL_ALWAYS_INDIRECT=0
 export LIBGL_ALWAYS_SOFTWARE=0
 export USERNAME=default
-export __NV_PRIME_RENDER_OFFLOAD=1
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
+# NVIDIA — только если есть драйвер, иначе (AMD/Intel) OpenGL идёт через Mesa
+if command -v nvidia-smi >/dev/null 2>&1; then
+    export __NV_PRIME_RENDER_OFFLOAD=1
+    export __GLX_VENDOR_LIBRARY_NAME=nvidia
+fi
 
 
 if uname -v | grep -qi 'ubuntu'; then
