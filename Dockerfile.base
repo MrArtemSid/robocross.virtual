@@ -133,6 +133,8 @@ RUN rosdep --rosdistro "${ROS_DISTRO}" update
 RUN cd /ulstu/ros2_ws && yes | rosdep --rosdistro "${ROS_DISTRO}" install -r --from-paths src --ignore-src
 
 RUN pip3 install matplotlib scipy --upgrade 
+# свежий setuptools из pip ломает colcon со старым packaging из apt (canonicalize_version)
+RUN sudo pip3 install --upgrade packaging
 
 WORKDIR /ulstu/ros2_ws
 
