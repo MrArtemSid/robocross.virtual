@@ -1,12 +1,12 @@
-#VRML_SIM R2023b utf8
+#VRML_SIM R2025a utf8
 
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/road/protos/Road.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/road/protos/RoadLine.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/trees/protos/SimpleTree.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/traffic/protos/GenericTrafficLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/road/protos/Road.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/road/protos/RoadLine.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/trees/protos/SimpleTree.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/traffic/protos/GenericTrafficLight.proto"
 EXTERNPROTO "../protos/MainRoadSign.proto"
 EXTERNPROTO "../protos/GiveWaySign.proto"
 EXTERNPROTO "../protos/PlasticBarrel.proto"
@@ -63,7 +63,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -85,7 +85,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -107,7 +107,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -129,7 +129,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -151,7 +151,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -173,7 +173,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -195,7 +195,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -217,7 +217,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -239,7 +239,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -261,7 +261,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -283,7 +283,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -305,7 +305,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -327,7 +327,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -349,7 +349,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -371,7 +371,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -393,7 +393,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -415,7 +415,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -437,7 +437,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -459,7 +459,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -481,7 +481,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -503,7 +503,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -525,7 +525,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -547,7 +547,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -568,7 +568,7 @@ Solid {
           appearance PBRAppearance {
             baseColorMap ImageTexture {
               url [
-                "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+                "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
               ]
             }
             roughness 1
@@ -935,7 +935,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/vehicles/worlds/textures/ground.jpg"
+            "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/vehicles/worlds/textures/ground.jpg"
           ]
         }
       }
@@ -959,7 +959,7 @@ Solid {
       appearance Appearance {
         texture ImageTexture {
           url [
-            "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/vehicles/worlds/textures/ground.jpg"
+            "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/vehicles/worlds/textures/ground.jpg"
           ]
         }
       }
@@ -1033,7 +1033,7 @@ Solid {
       appearance PBRAppearance {
         baseColorMap ImageTexture {
           url [
-            "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/rock.jpg"
+            "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/rock.jpg"
           ]
         }
         roughness 1
@@ -1052,7 +1052,7 @@ RectangleArena {
   floorAppearance PBRAppearance {
     baseColorMap ImageTexture {
       url [
-        "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/default/worlds/textures/grass.jpg"
+        "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/default/worlds/textures/grass.jpg"
       ]
       repeatS FALSE
       repeatT FALSE

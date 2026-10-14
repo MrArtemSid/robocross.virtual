@@ -1,9 +1,9 @@
-#VRML_SIM R2023b utf8
+#VRML_SIM R2025a utf8
 # license: Copyright Cyberbotics Ltd. Licensed for use only with Webots.
 # license url: https://cyberbotics.com/webots_assets_license
 # tags: hidden
 
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/GlossyPaint.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/GlossyPaint.proto"
 
 PROTO GazelleNextMesh [
   field     SFColor  color                    0.43 0.11 0.1
