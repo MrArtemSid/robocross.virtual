@@ -18,6 +18,7 @@ from .lib.orientation import euler_from_quaternion
 # Здесь нет решений - только перевод датчиков в лучи, как в 2D-мире, и команды в cmd_ackermann:
 #   камера глубины 840x480 -> 64 дальности по лучам слева направо (поле 1 рад)
 #   лидар 64x1024 -> 128 дальностей по кругу (без земли и своего кузова)
+#   камера цвета -> доля запрещающего (красного или жёлтого) огня светофора в верхней половине кадра
 # Сервер: FLY_HOST:FLY_PORT (по умолчанию host.docker.internal:5005).
 
 CAM_FOV, CAM_RAYS, CAM_MIN, CAM_MAX = 1.0, 64, 0.5, 40.0
@@ -28,6 +29,17 @@ GROUND = 0.15                    # м: точки ниже - земля
 BODY_X = (-6.0, 0.6)             # кузов в системе лидара: от задней кромки до капота
 BODY_Y = 1.05
 GPS_X = 2.4                      # GPS (верхний слот + 0.4) впереди начала координат машины
+RED_MIN, RED_G, RED_B = 200, 180, 80   # запрещающий огонь (красный или жёлтый): R > 200, G < 180, B < 80
+RED_PIX = 40                     # столько пикселей огня - сигнал насыщен
+COLOR_TOPIC = '/vehicle/camera/image_color'   # config/simulator/devices_topics.yaml: front_image_topicname
+
+
+# Доля красного огня в кадре 0..1: верхняя половина (светофор выше горизонта)
+def red_signal(img, encoding):
+    k = (0, 1, 2) if encoding.startswith('rgb') else (2, 1, 0)   # R, G, B по раскладке кадра
+    top = img[:img.shape[0] // 2]
+    r, g, b = top[:, :, k[0]], top[:, :, k[1]], top[:, :, k[2]]
+    return min(float(((r > RED_MIN) & (g < RED_G) & (b < RED_B)).sum()) / RED_PIX, 1.0)
 
 
 class FlyDriver(Node):
@@ -45,7 +57,8 @@ class FlyDriver(Node):
         self.create_subscription(PointCloud2, '/vehicle/lidar_base/point_cloud', self.on_lidar, qos)
         self.create_subscription(Odometry, '/odom', self.on_odom, qos)
         self.create_subscription(Float32, '/vehicle/gps/speed', self.on_speed, qos)
-        self.lid, self.pose, self.speed = None, None, 0.0
+        self.create_subscription(Image, COLOR_TOPIC, self.on_color, qos)
+        self.lid, self.pose, self.speed, self.red = None, None, 0.0, 0.0
         w = 840
         cols = (np.arange(w) - w / 2 + 0.5) / (w / 2) * math.tan(CAM_FOV / 2)
         self.col_ang = -np.arctan(cols)   # > 0 - слева; столбец 0 - левый край кадра
@@ -53,6 +66,11 @@ class FlyDriver(Node):
 
     def on_speed(self, m):
         self.speed = float(m.data)
+
+    # Кадр цвета -> доля красного огня в верхней половине
+    def on_color(self, m):
+        img = np.frombuffer(m.data, np.uint8).reshape(m.height, m.width, -1)
+        self.red = red_signal(img, m.encoding)
 
     def on_odom(self, m):
         p, q = m.pose.pose.position, m.pose.pose.orientation
@@ -82,7 +100,8 @@ class FlyDriver(Node):
         cam = np.clip([depth[g].min() for g in self.groups], CAM_MIN, CAM_MAX)
         t = self.get_clock().now().nanoseconds * 1e-9   # время симуляции (/clock, use_sim_time из launch)
         req = {'t': t, 'x': self.pose[0], 'y': self.pose[1], 'th': self.pose[2], 'v': self.speed,
-               'cam': [round(float(v), 3) for v in cam], 'lid': [round(float(v), 3) for v in self.lid]}
+               'cam': [round(float(v), 3) for v in cam], 'lid': [round(float(v), 3) for v in self.lid],
+               'red': round(self.red, 3)}
         self.io.write(json.dumps(req) + '\n')
         self.io.flush()
         res = json.loads(self.io.readline())
